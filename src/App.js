@@ -1,21 +1,15 @@
-import styled from "styled-components";
-import { defaultBoxStyle } from "./style/mixins";
-
-const S = {
-  Box: styled.div`
-    ${defaultBoxStyle}
-    width: 300px;
-  `,
-};
+import GlobalBoxWrapper from "./Components/layout/GlobalBoxWrapper";
+import Header from "./Components/layout/Header";
 
 function App() {
   return (
-    <div>
-      <S.Box>
+    <>
+      <Header />
+      <GlobalBoxWrapper>
         <div>asdf</div>
         <div>hhhh</div>
-      </S.Box>
-    </div>
+      </GlobalBoxWrapper>
+    </>
   );
 }
 

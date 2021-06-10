@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
         --green: ${(props) => props.theme.lightColor.green};
         --teal: ${(props) => props.theme.lightColor.teal};
         --blue: ${(props) => props.theme.lightColor.blue};
+        --lightblue: ${(props) => props.theme.lightColor.lightblue};
         --indigo: ${(props) => props.theme.lightColor.indigo};
         --purple: ${(props) => props.theme.lightColor.purple};
         --pink: ${(props) => props.theme.lightColor.pink};

@@ -8,6 +8,7 @@ const lightColor = {
   green: "#28a745",
   teal: "#20c997",
   blue: "#007bff",
+  lightblue: "#bfe0fe",
   indigo: "#6610f2",
   purple: "#6f42c1",
   pink: "#e83e8c",
