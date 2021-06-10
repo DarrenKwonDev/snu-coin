@@ -10,7 +10,9 @@ const S = {
     display: flex;
     justify-content: space-between;
     padding: 24px;
-    border: 1px solid black;
+
+    //TODO: header의 border는 임시임. 제출 전 지울 것
+    border: 1px solid var(--red);
 
     .header-left {
       font-weight: bold;

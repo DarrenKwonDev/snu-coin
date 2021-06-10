@@ -5,12 +5,7 @@ import { ReactComponent as SunSvg } from "../../style/svg/sun.svg";
 
 const S = {
   ThemeToggleButton: styled.div`
-    width: 16px;
-    height: 16px;
-
-    &:hover {
-      cursor: pointer;
-    }
+    cursor: pointer;
   `,
 };
 
