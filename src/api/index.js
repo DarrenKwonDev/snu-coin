@@ -11,13 +11,22 @@ const getDefaultHeaders = () => {
 };
 
 const post = async (url, body = {}, extraHeaders = {}) => {
-  const res = await fetch(`${defaultUrl}/${url}`, {
-    method: "POST",
-    body: new URLSearchParams(body).toString(),
-    headers: { ...getDefaultHeaders(), ...extraHeaders },
-  });
+  try {
+    const res = await fetch(`${defaultUrl}/${url}`, {
+      method: "POST",
+      body: new URLSearchParams(body).toString(),
+      headers: { ...getDefaultHeaders(), ...extraHeaders },
+    });
 
-  return await res.json();
+    if (res.status >= 400 || !res.ok) {
+      return `${res.status}, ${res.statusText}`;
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.error(error.message);
+    throw new Error(error);
+  }
 };
 
 const get = async (url, query = {}, extraHeaders = {}) => {
@@ -45,4 +54,4 @@ const loadMarket = async (market) => {
   return await get(`markets/${market}`);
 };
 
-export { login, loadMarket, loadMarkets, loadAssets };
+export { LOGIN_KEY, login, loadMarket, loadMarkets, loadAssets };
