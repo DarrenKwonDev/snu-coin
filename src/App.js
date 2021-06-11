@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import styled from "styled-components";
-import { loginByKey, LOGIN_KEY } from "./api";
+import { loadAssets, loginByKey, LOGIN_KEY } from "./api";
 import CrpytoInfo from "./Components/cryptoInfo";
 import Header from "./Components/layout/Header";
 import OpenOrder from "./Components/openOrder";
@@ -9,6 +9,7 @@ import StockGraph from "./Components/stockGraph";
 import TradeForm from "./Components/tradeForm";
 import UserAsset from "./Components/userAsset";
 import UserAuth from "./Components/userAuth";
+import { AssetsContext } from "./context/AssetsContext";
 import { LoginContext } from "./context/LoginContext";
 import { adaptiveBackground } from "./style/mixins";
 
@@ -22,7 +23,7 @@ const S = {
     min-height: 100vh;
 
     grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: 50px 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 72px 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas:
       "crpytoInfo crpytoInfo crpytoInfo crpytoInfo userAuth userAuth"
       "stockGraph stockGraph stockGraph stockGraph userAuth userAuth"
@@ -57,6 +58,7 @@ const S = {
 
 function App() {
   const { authenticated, userName } = useContext(LoginContext);
+  const { userAssets } = useContext(AssetsContext);
 
   useEffect(() => {
     const authenticationCheck = async () => {
@@ -79,6 +81,19 @@ function App() {
     };
     authenticationCheck();
   }, [authenticated, userName]);
+
+  useEffect(() => {
+    const loadOwnAssets = async () => {
+      if (!authenticated.isAuthenticated) {
+        console.log("not authenticated");
+        return;
+      }
+
+      const assetData = await loadAssets();
+      userAssets.setAssets(assetData);
+    };
+    loadOwnAssets();
+  }, [authenticated.isAuthenticated]);
 
   return (
     <>

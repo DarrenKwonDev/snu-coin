@@ -7,11 +7,18 @@ const S = {
     ${defaultBoxStyle}
 
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
 
     .crpyto-name {
       font-weight: bold;
-      margin-right: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .price {
+      font-size: 1.5rem;
+      font-weight: bold;
     }
   `,
 };

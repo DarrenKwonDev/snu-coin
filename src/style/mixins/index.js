@@ -4,7 +4,7 @@ export const defaultBoxStyle = css`
   border: 1px solid var(--adaptiveGray300);
   border-radius: 6px;
   box-shadow: 0 2px 4px -4px var(--adaptiveGray900);
-  padding: 10px;
+  padding: 24px;
 
   height: 100%; // grid 전체 차지하게
 `;
@@ -23,4 +23,11 @@ export const primaryButtonStyle = css`
   cursor: pointer;
 
   padding: 10px;
+`;
+
+export const flexCentering = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
