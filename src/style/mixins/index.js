@@ -5,9 +5,22 @@ export const defaultBoxStyle = css`
   border-radius: 6px;
   box-shadow: 0 2px 4px -4px var(--adaptiveGray900);
   padding: 10px;
+
+  height: 100%; // grid 전체 차지하게
 `;
 
 export const adaptiveBackground = css`
   background: var(--adaptiveGray50);
   color: var(--adaptiveGray900);
+`;
+
+export const primaryButtonStyle = css`
+  background: var(--blue);
+  color: var(--adaptiveGray50);
+
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+
+  padding: 10px;
 `;
