@@ -12,6 +12,8 @@ const getDefaultHeaders = () => {
 
 const post = async (url, body = {}, extraHeaders = {}) => {
   try {
+    console.log(`post ${defaultUrl}/${url}...`);
+
     const res = await fetch(`${defaultUrl}/${url}`, {
       method: "POST",
       body: new URLSearchParams(body).toString(),
@@ -42,6 +44,10 @@ const login = async (name, password) => {
   return await post("login", { name, password });
 };
 
+const loginByKey = async (key) => {
+  return await post("login_by_key", { key });
+};
+
 const loadAssets = async () => {
   return await get("assets");
 };
@@ -54,4 +60,4 @@ const loadMarket = async (market) => {
   return await get(`markets/${market}`);
 };
 
-export { LOGIN_KEY, login, loadMarket, loadMarkets, loadAssets };
+export { LOGIN_KEY, login, loginByKey, loadMarket, loadMarkets, loadAssets };

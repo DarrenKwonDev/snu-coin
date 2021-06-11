@@ -5,13 +5,16 @@ import "./style/reset.css";
 import { ThemeProvider } from "styled-components";
 import theme from "./theme/theme";
 import GlobalStyle from "./theme/globalStyle";
+import LoginContextProvider from "./context/LoginContext";
 
 ReactDOM.render(
   <>
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <App />
-    </ThemeProvider>
+    <LoginContextProvider>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <App />
+      </ThemeProvider>
+    </LoginContextProvider>
   </>,
   document.getElementById("root")
 );

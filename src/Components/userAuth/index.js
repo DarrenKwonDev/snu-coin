@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { LOGIN_KEY, login } from "../../api";
+import { LoginContext } from "../../context/LoginContext";
 import {
   adaptiveBackground,
   defaultBoxStyle,
@@ -60,9 +61,7 @@ const inputType = {
 function UserAuth() {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoggedIn, setisLoggedIn] = useState(() =>
-    localStorage.getItem(LOGIN_KEY) ? true : false
-  );
+  const { authenticated, userName } = useContext(LoginContext);
 
   const handleInputChange = (e, type) => {
     switch (type) {
@@ -81,25 +80,31 @@ function UserAuth() {
     const loginData = await login(userId, password);
     if (loginData.key) {
       localStorage.setItem(LOGIN_KEY, loginData.key);
+      userName.setName(loginData.key.split("@")[0]);
+      authenticated.setIsAuthenticated(true);
+
+      setUserId("");
+      setPassword("");
       alert(`Welcome`);
-      setisLoggedIn(true);
     } else {
       console.error(loginData);
+      userName.setName(null);
+      authenticated.setIsAuthenticated(false);
       alert("key not found");
     }
   };
 
   const handleLogoutClick = () => {
     localStorage.removeItem(LOGIN_KEY);
-    setisLoggedIn(false);
+    authenticated.setIsAuthenticated(false);
     alert(`Bye`);
   };
 
   return (
     <S.Wrapper>
-      {isLoggedIn ? (
+      {authenticated.isAuthenticated ? (
         <S.LogoutWrapper>
-          <S.Title>Welcome</S.Title>
+          <S.Title>Welcome! {userName.name}</S.Title>
           <S.LoginButton onClick={handleLogoutClick}>Logout</S.LoginButton>
         </S.LogoutWrapper>
       ) : (
