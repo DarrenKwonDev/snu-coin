@@ -3,6 +3,7 @@ const calcRem = (px) => `${px / 16}rem`;
 
 const lightColor = {
   red: "#dc3545",
+  lightred: "#FFF7F9",
   orange: "#fd7e14",
   yellow: "#ffc107",
   green: "#28a745",

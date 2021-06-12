@@ -3,6 +3,7 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyle = createGlobalStyle`
     :root {
         --red: ${(props) => props.theme.lightColor.red};
+        --lightred: ${(props) => props.theme.lightColor.lightred};
         --orange: ${(props) => props.theme.lightColor.orange};
         --yellow: ${(props) => props.theme.lightColor.yellow};
         --green: ${(props) => props.theme.lightColor.green};

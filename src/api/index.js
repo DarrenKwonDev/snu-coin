@@ -59,4 +59,16 @@ const loadMarket = async (market) => {
   return await get(`markets/${market}`);
 };
 
-export { LOGIN_KEY, login, loginByKey, loadMarket, loadMarkets, loadAssets };
+const loadOrder = async () => {
+  return await get("orders");
+};
+
+export {
+  LOGIN_KEY,
+  login,
+  loginByKey,
+  loadMarket,
+  loadMarkets,
+  loadAssets,
+  loadOrder,
+};

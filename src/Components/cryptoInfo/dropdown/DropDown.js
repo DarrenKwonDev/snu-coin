@@ -54,7 +54,6 @@ function DropDownItem({
   setOpen,
 }) {
   const handleClickDropDownItem = () => {
-    console.log(wholeMarketList.wholeMarket[index]);
     selectedMarket.setChoosenMarket(wholeMarketList.wholeMarket[index]);
     setOpen((prev) => !prev);
   };
@@ -67,7 +66,7 @@ function DropDownItem({
 }
 
 function DropDown({ wholeMarketList, selectedMarket }) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -82,6 +81,7 @@ function DropDown({ wholeMarketList, selectedMarket }) {
           {wholeMarketList.wholeMarket.map((crpyto, i) => {
             return (
               <DropDownItem
+                key={i}
                 wholeMarketList={wholeMarketList}
                 selectedMarket={selectedMarket}
                 crpyto={crpyto}
