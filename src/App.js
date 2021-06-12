@@ -61,6 +61,16 @@ function App() {
   const { userAssets } = useContext(AssetsContext);
 
   useEffect(() => {
+    const loadOwnAssets = async () => {
+      if (!authenticated.isAuthenticated) {
+        console.log("not authenticated");
+        return;
+      }
+
+      const assetData = await loadAssets();
+      userAssets.setAssets(assetData);
+    };
+
     const authenticationCheck = async () => {
       const key = localStorage.getItem(LOGIN_KEY);
       if (key) {
@@ -79,21 +89,10 @@ function App() {
         authenticated.setIsAuthenticated(false);
       }
     };
+
     authenticationCheck();
-  }, [authenticated, userName]);
-
-  useEffect(() => {
-    const loadOwnAssets = async () => {
-      if (!authenticated.isAuthenticated) {
-        console.log("not authenticated");
-        return;
-      }
-
-      const assetData = await loadAssets();
-      userAssets.setAssets(assetData);
-    };
     loadOwnAssets();
-  }, [authenticated.isAuthenticated]);
+  }, [authenticated]);
 
   return (
     <>

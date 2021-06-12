@@ -133,4 +133,4 @@ function UserAuth() {
   );
 }
 
-export default UserAuth;
+export default React.memo(UserAuth);

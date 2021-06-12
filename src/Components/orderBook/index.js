@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+
 import { defaultBoxStyle } from "../../style/mixins";
 
 const S = {

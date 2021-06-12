@@ -9,15 +9,18 @@ import GlobalStyle from "./theme/globalStyle";
 
 import LoginContextProvider from "./context/LoginContext";
 import AssetsContextProvider from "./context/AssetsContext";
+import CryptoContextProvider from "./context/CryptoContext";
 
 ReactDOM.render(
   <>
     <LoginContextProvider>
       <AssetsContextProvider>
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <App />
-        </ThemeProvider>
+        <CryptoContextProvider>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            <App />
+          </ThemeProvider>
+        </CryptoContextProvider>
       </AssetsContextProvider>
     </LoginContextProvider>
   </>,

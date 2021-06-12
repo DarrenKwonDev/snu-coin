@@ -9,6 +9,22 @@ const S = {
   Wrapper: styled.div`
     ${defaultBoxStyle}
   `,
+  WholeAsset: styled.div`
+    display: flex;
+    flex-direction: column;
+
+    color: var(--adaptiveGray900);
+    text-align: left;
+    margin: 12px 0;
+
+    .whole-asset-title {
+      color: var(--adaptiveGray600);
+    }
+    .whole-asset-number {
+      font-size: 24px;
+      font-weight: bold;
+    }
+  `,
   AssetHeader: styled.div`
     display: flex;
     justify-content: space-around;
@@ -57,7 +73,10 @@ function UserAsset() {
 
   return (
     <S.Wrapper>
-      <S.AssetItem>총 자산 : {assetSum}</S.AssetItem>
+      <S.WholeAsset>
+        <div className="whole-asset-title">총 자산</div>
+        <div className="whole-asset-number">{assetSum}</div>
+      </S.WholeAsset>
       <S.AssetHeader>
         <div className="asset-header-item asset-name">자산명</div>
         <div className="asset-header-item asset-amount">보유 수량</div>
@@ -75,4 +94,4 @@ function UserAsset() {
   );
 }
 
-export default UserAsset;
+export default React.memo(UserAsset);

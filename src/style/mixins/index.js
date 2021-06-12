@@ -25,9 +25,9 @@ export const primaryButtonStyle = css`
   padding: 10px;
 `;
 
-export const flexCentering = css`
+export const flexCentering = (direction) => `
   display: flex;
-  flex-direction: column;
+  flex-direction: ${direction};
   justify-content: center;
   align-items: center;
 `;

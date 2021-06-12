@@ -13,7 +13,6 @@ const getDefaultHeaders = () => {
 const post = async (url, body = {}, extraHeaders = {}) => {
   try {
     console.log(`post ${defaultUrl}/${url}...`);
-
     const res = await fetch(`${defaultUrl}/${url}`, {
       method: "POST",
       body: new URLSearchParams(body).toString(),
