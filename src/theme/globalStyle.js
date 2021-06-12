@@ -20,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
         --info: ${(props) => props.theme.lightColor.info};
         --warning: ${(props) => props.theme.lightColor.warning};
         --danger: ${(props) => props.theme.lightColor.danger};
+        
         /* adaptive gray lightmode */
         --adaptiveGray50: #f9fafb;
         --adaptiveGray100: #f2f4f6;

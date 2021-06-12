@@ -16,12 +16,12 @@ const S = {
     color: var(--adaptiveGray600);
 
     .price {
-      width: 30%;
+      width: 40%;
       text-align: center;
     }
 
     .quantity {
-      width: 70%;
+      width: 60%;
       text-align: center;
     }
   `,
@@ -36,12 +36,12 @@ const S = {
       props.type === "buy" ? "var(--lightblue)" : "var(--lightred)"};
 
     .price {
-      width: 30%;
+      width: 40%;
       text-align: center;
     }
 
     .quantity {
-      width: 70%;
+      width: 60%;
       text-align: center;
     }
 
@@ -73,21 +73,26 @@ function OrderBook() {
   return (
     <S.Wrapper>
       <S.OrderHeader>
-        <div className="price">가격</div>
-        <div className="quantity">수량</div>
+        <div className="price">
+          가격 : 1 {selectedMarket.choosenMarket.coin} ={" "}
+          {selectedMarket.choosenMarket.currency}
+        </div>
+        <div className="quantity">
+          수량 : {selectedMarket.choosenMarket.coin} 몇 개
+        </div>
       </S.OrderHeader>
       <Divider />
       {orderBookList.buy.length > 0 &&
-        orderBookList.buy.map((order, i) => (
+        orderBookList.buy.reverse().map((order, i) => (
           <S.OrderUnit key={i} type={"buy"}>
-            <div className="price">{order.price}</div>
+            <div className="price">{order.price} </div>
             <div className="quantity">{order.totalQuantity}</div>
           </S.OrderUnit>
         ))}
       {orderBookList.sell.length > 0 &&
         orderBookList.sell.map((order, i) => (
           <S.OrderUnit key={i} type={"sell"}>
-            <div className="price">{order.price}</div>
+            <div className="price">{order.price} </div>
             <div className="quantity">{order.totalQuantity}</div>
           </S.OrderUnit>
         ))}

@@ -10,9 +10,6 @@ const S = {
     ${defaultBoxStyle}
 
     display: flex;
-    flex-direction: row;
-    /* justify-content: center; */
-    /* align-items: left; */
 
     .crpyto-name {
       display: flex;
@@ -23,15 +20,16 @@ const S = {
       margin-right: 1.25rem;
     }
 
-    .price {
-      font-size: 1.5rem;
-      font-weight: bold;
+    .info {
+      font-size: 1.25rem;
     }
   `,
 };
 
 function CrpytoInfo() {
   const { selectedMarket, wholeMarketList } = useContext(CryptoContext);
+
+  console.log(selectedMarket.choosenMarket);
 
   useEffect(() => {
     const getMarkets = async () => {
@@ -52,8 +50,9 @@ function CrpytoInfo() {
               selectedMarket={selectedMarket}
             />
           </div>
-          <div className="price">
-            minPrice : {selectedMarket.choosenMarket?.minPrice}
+          <div className="info">
+            {selectedMarket.choosenMarket.coin}을/를{" "}
+            {selectedMarket.choosenMarket.currency}로 삽니다.
           </div>
         </>
       )}
