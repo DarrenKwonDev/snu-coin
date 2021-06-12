@@ -6,7 +6,6 @@ export const LoginContext = createContext(null);
 function LoginContextProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [name, setName] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   const store = {
     authenticated: {
@@ -16,10 +15,6 @@ function LoginContextProvider({ children }) {
     userName: {
       name,
       setName,
-    },
-    loading: {
-      isLoading,
-      setIsLoading,
     },
     key: localStorage.getItem(LOGIN_KEY),
   };

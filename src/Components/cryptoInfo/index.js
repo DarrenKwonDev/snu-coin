@@ -29,8 +29,6 @@ const S = {
 function CrpytoInfo() {
   const { selectedMarket, wholeMarketList } = useContext(CryptoContext);
 
-  console.log(selectedMarket.choosenMarket);
-
   useEffect(() => {
     const getMarkets = async () => {
       const marketsList = await loadMarkets();

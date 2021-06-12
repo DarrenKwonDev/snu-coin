@@ -59,7 +59,7 @@ const loadMarket = async (market) => {
   return await get(`markets/${market}`);
 };
 
-const loadOrder = async () => {
+const loadOrders = async () => {
   return await get("orders");
 };
 
@@ -70,5 +70,5 @@ export {
   loadMarket,
   loadMarkets,
   loadAssets,
-  loadOrder,
+  loadOrders,
 };

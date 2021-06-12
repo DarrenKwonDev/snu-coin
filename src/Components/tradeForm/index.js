@@ -68,10 +68,12 @@ const S = {
 };
 
 function TradeForm() {
-  const [tradeOption, setTradeOption] = useState("buy");
-
   const { userAssets } = useContext(AssetsContext);
   const { selectedMarket } = useContext(CryptoContext);
+
+  const [tradeOption, setTradeOption] = useState("buy");
+  const [userOfferedPrice, setUserOfferedPrice] = useState(0);
+  const [userOfferedAmount, setUserOfferedAmount] = useState(0);
 
   let myCurrency = userAssets.assets.find(
     (asset) => asset.symbol === selectedMarket.choosenMarket.currency
@@ -95,14 +97,18 @@ function TradeForm() {
         <S.CurrentAssetState>
           {tradeOption === "buy" ? (
             <div>
-              보유 {selectedMarket.choosenMarket.currency} :
-              {myCurrency.quantity}
+              보유 {selectedMarket.choosenMarket.currency} :{" "}
+              {myCurrency?.quantity}
             </div>
           ) : (
             <div>
-              보유 {selectedMarket.choosenMarket.coin} : {myCoin.quantity}
+              보유 {selectedMarket.choosenMarket.coin} : {myCoin?.quantity}
             </div>
           )}
+          <div>
+            최소 가격 : {selectedMarket.choosenMarket.minPrice}{" "}
+            {selectedMarket.choosenMarket.currency}
+          </div>
         </S.CurrentAssetState>
 
         <label>
@@ -111,6 +117,8 @@ function TradeForm() {
             type="number"
             placeholder={`price (${selectedMarket.choosenMarket.currency})`}
             min={selectedMarket.choosenMarket.minPrice}
+            value={userOfferedPrice}
+            onChange={(e) => setUserOfferedPrice(e.target.value)}
           />
         </label>
         <label>
@@ -118,6 +126,8 @@ function TradeForm() {
           <input
             type="number"
             placeholder={`amount (${selectedMarket.choosenMarket.coin})`}
+            value={userOfferedAmount}
+            onChange={(e) => setUserOfferedAmount(e.target.value)}
           />
         </label>
         <S.ActionButton tradeOption={tradeOption === "buy"}>

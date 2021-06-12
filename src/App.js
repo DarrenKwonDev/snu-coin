@@ -1,6 +1,7 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { loadAssets, loginByKey, LOGIN_KEY } from "./api";
+import FullPageLoader from "./Components/common/FullPageLoader";
 import CrpytoInfo from "./Components/cryptoInfo";
 import Header from "./Components/layout/Header";
 import OpenOrder from "./Components/openOrder";
@@ -60,6 +61,12 @@ function App() {
   const { authenticated, userName } = useContext(LoginContext);
   const { userAssets } = useContext(AssetsContext);
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 2500);
+
   useEffect(() => {
     const loadOwnAssets = async () => {
       if (!authenticated.isAuthenticated) {
@@ -96,6 +103,7 @@ function App() {
 
   return (
     <>
+      <FullPageLoader isLoading={isLoading} />
       <Header />
       <S.GlobalBoxWrapper>
         <div className="crpytoInfo">
