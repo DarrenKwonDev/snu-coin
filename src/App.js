@@ -18,10 +18,12 @@ const S = {
   GlobalBoxWrapper: styled.div`
     ${adaptiveBackground}
     display: grid;
-    gap: 6px;
+
+    gap: 12px;
 
     padding: 24px;
     min-height: 100vh;
+    min-width: 1024px;
 
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: 72px 1fr 1fr 1fr 1fr 1fr;
@@ -65,7 +67,7 @@ function App() {
 
   setTimeout(() => {
     setIsLoading(false);
-  }, 2500);
+  }, 2000);
 
   useEffect(() => {
     const loadOwnAssets = async () => {
