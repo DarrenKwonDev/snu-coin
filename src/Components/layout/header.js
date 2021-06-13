@@ -21,12 +21,6 @@ const S = {
 };
 
 function Header() {
-  const getOrders = async () => {
-    const orders = await loadOrders();
-    console.log("header에서 렌더되는 거래내역입니다", orders);
-  };
-  getOrders();
-
   return (
     <S.Header>
       <div

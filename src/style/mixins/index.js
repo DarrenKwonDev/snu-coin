@@ -7,6 +7,8 @@ export const defaultBoxStyle = css`
   padding: 24px;
 
   height: 100%; // grid 전체 차지하게
+  max-height: 500px;
+  overflow: auto;
 `;
 
 export const adaptiveBackground = css`

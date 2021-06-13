@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 
+import "antd/dist/antd.css";
 import "./style/reset.css";
 import { ThemeProvider } from "styled-components";
 import theme from "./theme/theme";

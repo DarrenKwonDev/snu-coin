@@ -63,6 +63,10 @@ const loadOrders = async () => {
   return await get("orders");
 };
 
+const postOrder = async (price, quantity, market, side) => {
+  return await post("orders", { price, quantity, market, side });
+};
+
 export {
   LOGIN_KEY,
   login,
@@ -71,4 +75,5 @@ export {
   loadMarkets,
   loadAssets,
   loadOrders,
+  postOrder,
 };

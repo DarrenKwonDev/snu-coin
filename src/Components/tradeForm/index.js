@@ -1,8 +1,10 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
+import { postOrder } from "../../api";
 import { AssetsContext } from "../../context/AssetsContext";
 import { CryptoContext } from "../../context/CryptoContext";
 import { defaultBoxStyle } from "../../style/mixins";
+import { message } from "antd";
 
 const S = {
   Wrapper: styled.div`
@@ -67,6 +69,29 @@ const S = {
   `,
 };
 
+function createToastMesssage(type, content) {
+  switch (type) {
+    case "success":
+      return message.success({
+        content,
+        style: {
+          marginTop: "20vh",
+        },
+      });
+
+    case "error":
+      return message.error({
+        content,
+        style: {
+          marginTop: "50vh",
+        },
+      });
+
+    default:
+      return;
+  }
+}
+
 function TradeForm() {
   const { userAssets } = useContext(AssetsContext);
   const { selectedMarket } = useContext(CryptoContext);
@@ -81,6 +106,38 @@ function TradeForm() {
   let myCoin = userAssets.assets.find(
     (asset) => asset.symbol === selectedMarket.choosenMarket.coin
   );
+
+  const handleActionButtonClick = () => {
+    const transactionInit = async () => {
+      if (userOfferedPrice < selectedMarket.choosenMarket.minPrice)
+        return createToastMesssage(
+          "error",
+          `해당 market의 최소 가격은 ${selectedMarket.choosenMarket.minPrice} 입니다`
+        );
+
+      if (userOfferedAmount <= 0)
+        return createToastMesssage(
+          "error",
+          "0보다 큰 갯수만 거래할 수 있습니다."
+        );
+
+      const orderData = await postOrder(
+        userOfferedPrice,
+        userOfferedAmount,
+        selectedMarket.choosenMarket.name,
+        tradeOption
+      ); //  market, price, quantity, remainQuantity 반환
+      if (orderData._id)
+        return createToastMesssage(
+          "success",
+          `${orderData.market} 마켓에서 ${selectedMarket.choosenMarket.coin}  ${orderData.quantity}개를 개당 ${orderData.price} ${selectedMarket.choosenMarket.currency} 에 ${tradeOption} 하는 거래 생성`
+        );
+
+      setUserOfferedPrice(0);
+      setUserOfferedAmount(0);
+    };
+    transactionInit();
+  };
 
   return (
     <S.Wrapper>
@@ -130,7 +187,10 @@ function TradeForm() {
             onChange={(e) => setUserOfferedAmount(e.target.value)}
           />
         </label>
-        <S.ActionButton tradeOption={tradeOption === "buy"}>
+        <S.ActionButton
+          tradeOption={tradeOption === "buy"}
+          onClick={handleActionButtonClick}
+        >
           {tradeOption === "buy" ? "매수" : "매도"}
         </S.ActionButton>
       </S.InputWrapper>

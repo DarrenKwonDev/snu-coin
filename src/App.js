@@ -23,7 +23,7 @@ const S = {
 
     padding: 24px;
     min-height: 100vh;
-    min-width: 1024px;
+    /* min-width: 1024px; */
 
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: 72px 1fr 1fr 1fr 1fr 1fr;

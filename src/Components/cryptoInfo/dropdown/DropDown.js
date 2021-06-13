@@ -27,7 +27,7 @@ const S = {
 
     width: 120px;
 
-    border: 2px solid var(--adaptiveGray700);
+    border: 1px solid var(--adaptiveGray700);
     border-bottom: ${({ open }) => open && 0}; // dropdown 열리면 안 보이게 하자
 
     padding: 6px 12px;

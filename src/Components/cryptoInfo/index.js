@@ -8,6 +8,7 @@ import DropDown from "./dropdown/DropDown";
 const S = {
   Wrapper: styled.div`
     ${defaultBoxStyle}
+    overflow: visible;
 
     display: flex;
 
@@ -50,7 +51,7 @@ function CrpytoInfo() {
           </div>
           <div className="info">
             {selectedMarket.choosenMarket.coin}을/를{" "}
-            {selectedMarket.choosenMarket.currency}로 삽니다.
+            {selectedMarket.choosenMarket.currency}로 거래합니다.
           </div>
         </>
       )}
