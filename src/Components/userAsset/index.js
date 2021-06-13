@@ -74,7 +74,7 @@ function UserAsset() {
   return (
     <S.Wrapper>
       <S.WholeAsset>
-        <div className="whole-asset-title">총 자산</div>
+        <div className="whole-asset-title">총 자산(단순 합계)</div>
         <div className="whole-asset-number">{assetSum}</div>
       </S.WholeAsset>
       <S.AssetHeader>

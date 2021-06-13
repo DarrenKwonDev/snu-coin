@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { adaptiveBackground, flexCentering } from "../../../style/mixins";
 import { ReactComponent as DropDownSvg } from "../../../style/svg/chevron.svg";
+import { CURRENT_MARKET } from "../../../_constants";
 
 const S = {
   DropDownWrapper: styled.ul`
@@ -55,6 +56,10 @@ function DropDownItem({
 }) {
   const handleClickDropDownItem = () => {
     selectedMarket.setChoosenMarket(wholeMarketList.wholeMarket[index]);
+    localStorage.setItem(
+      CURRENT_MARKET,
+      JSON.stringify(wholeMarketList.wholeMarket[index])
+    );
     setOpen((prev) => !prev);
   };
 

@@ -1,0 +1,1 @@
+export const CURRENT_MARKET = "CURRENT_MARKET";

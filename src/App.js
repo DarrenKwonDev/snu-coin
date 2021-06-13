@@ -104,7 +104,6 @@ function App() {
 
     const loadWholeOrder = async () => {
       const wholeOrders = await loadOrders();
-      console.log("wholeorder", wholeOrders);
       orderList.setMyOrderList(wholeOrders);
     };
 

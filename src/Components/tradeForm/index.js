@@ -204,7 +204,7 @@ function TradeForm() {
         </label>
         <S.ActionButton
           tradeOption={tradeOption === "buy"}
-          onClick={handleActionButtonClick}
+          onClick={debounce(handleActionButtonClick, 250)}
         >
           {tradeOption === "buy" ? "매수" : "매도"}
         </S.ActionButton>

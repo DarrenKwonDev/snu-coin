@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { loadMarkets } from "../../api";
 import { CryptoContext } from "../../context/CryptoContext";
 import { defaultBoxStyle } from "../../style/mixins";
+import { CURRENT_MARKET } from "../../_constants";
 import DropDown from "./dropdown/DropDown";
 
 const S = {
@@ -34,7 +35,12 @@ function CrpytoInfo() {
     const getMarkets = async () => {
       const marketsList = await loadMarkets();
       wholeMarketList.setwholeMarket(marketsList);
-      selectedMarket.setChoosenMarket(marketsList[0]);
+      let currentMarket = localStorage.getItem(CURRENT_MARKET);
+      if (!currentMarket) {
+        selectedMarket.setChoosenMarket(marketsList[0]);
+      } else {
+        selectedMarket.setChoosenMarket(JSON.parse(currentMarket));
+      }
     };
     getMarkets();
   }, []);
