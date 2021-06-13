@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { loadOrders } from "../../api";
 import { adaptiveBackground } from "../../style/mixins";
 import ThemeToggleButton from "../common/ThemeToggleButton";
 

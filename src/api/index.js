@@ -39,6 +39,15 @@ const get = async (url, query = {}, extraHeaders = {}) => {
   return await res.json();
 };
 
+const deleteWrapper = async (url, extraHeaders = {}) => {
+  const res = await fetch(`${defaultUrl}/${url}`, {
+    method: "DELETE",
+    headers: { ...getDefaultHeaders(), ...extraHeaders },
+  });
+
+  return await res.json();
+};
+
 const login = async (name, password) => {
   return await post("login", { name, password });
 };
@@ -67,6 +76,10 @@ const postOrder = async (price, quantity, market, side) => {
   return await post("orders", { price, quantity, market, side });
 };
 
+const deleteOrder = async (id) => {
+  return await deleteWrapper(`orders/${id}`);
+};
+
 export {
   LOGIN_KEY,
   login,
@@ -76,4 +89,5 @@ export {
   loadAssets,
   loadOrders,
   postOrder,
+  deleteOrder,
 };

@@ -26,14 +26,15 @@ const S = {
     /* min-width: 1024px; */
 
     grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: 72px 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 72px 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas:
       "crpytoInfo crpytoInfo crpytoInfo crpytoInfo userAuth userAuth"
       "stockGraph stockGraph stockGraph stockGraph userAuth userAuth"
       "stockGraph stockGraph stockGraph stockGraph userAsset userAsset"
       "orderBook orderBook tradeForm tradeForm userAsset userAsset"
       "orderBook orderBook tradeForm tradeForm openOrder openOrder"
-      "orderBook orderBook tradeForm tradeForm openOrder openOrder";
+      "orderBook orderBook tradeForm tradeForm openOrder openOrder"
+      ". . . .  openOrder openOrder";
 
     .crpytoInfo {
       grid-area: crpytoInfo;

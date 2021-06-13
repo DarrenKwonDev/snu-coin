@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import { loadOrders } from "../../api";
+import { deleteOrder, loadOrders } from "../../api";
 import { CryptoContext } from "../../context/CryptoContext";
 import { adaptiveBackground, defaultBoxStyle } from "../../style/mixins";
 import { Empty } from "antd";
-import { flexCentering } from "../../style/mixins";
 import Divider from "../common/Divider";
 
 const S = {
@@ -17,9 +16,9 @@ const S = {
 
     padding: 12px;
     margin-bottom: 6px;
-    border: 1px solid var(--adaptiveGray600);
 
-    background: ${(props) => (props.side ? "var(--blue)" : "var(--red)")};
+    background: ${(props) =>
+      props.side ? "var(--lightblue)" : "var(--lightred)"};
 
     .side-info {
       display: flex;
@@ -57,21 +56,27 @@ function OpenOrder() {
   const { selectedMarket } = useContext(CryptoContext);
   const [openOrderList, setOpenOrderList] = useState([]);
 
-  useEffect(() => {
-    const getMyWholeOrders = async () => {
-      const orders = await loadOrders();
-      const openOrderInSelectedMarket = orders
-        .filter((order) => order.status === 0)
-        .filter(
-          (order) => order.market.name === selectedMarket.choosenMarket.name
-        );
+  const getMyWholeOrders = async () => {
+    const orders = await loadOrders();
+    const openOrderInSelectedMarket = orders
+      .filter((order) => order.status === 0)
+      .filter(
+        (order) => order.market.name === selectedMarket.choosenMarket.name
+      );
 
-      setOpenOrderList(openOrderInSelectedMarket);
-    };
+    setOpenOrderList(openOrderInSelectedMarket);
+  };
+
+  useEffect(() => {
     getMyWholeOrders();
   }, [selectedMarket]);
 
-  const handleCancelButtonClick = () => {};
+  const handleCancelButtonClick = async (openOrderId) => {
+    const deleteOutput = await deleteOrder(openOrderId);
+    if (deleteOutput.status === -1) {
+      return getMyWholeOrders();
+    }
+  };
 
   return (
     <S.Wrapper>
@@ -88,7 +93,7 @@ function OpenOrder() {
               </div>
               <S.CancelButton
                 side={openOrder.side === "buy"}
-                onClick={handleCancelButtonClick}
+                onClick={() => handleCancelButtonClick(openOrder._id)}
               >
                 취소
               </S.CancelButton>
