@@ -11,16 +11,19 @@ import GlobalStyle from "./theme/globalStyle";
 import LoginContextProvider from "./context/LoginContext";
 import AssetsContextProvider from "./context/AssetsContext";
 import CryptoContextProvider from "./context/CryptoContext";
+import OrderContextProvider from "./context/OrderContext";
 
 ReactDOM.render(
   <>
     <LoginContextProvider>
       <AssetsContextProvider>
         <CryptoContextProvider>
-          <ThemeProvider theme={theme}>
-            <GlobalStyle />
-            <App />
-          </ThemeProvider>
+          <OrderContextProvider>
+            <ThemeProvider theme={theme}>
+              <GlobalStyle />
+              <App />
+            </ThemeProvider>
+          </OrderContextProvider>
         </CryptoContextProvider>
       </AssetsContextProvider>
     </LoginContextProvider>

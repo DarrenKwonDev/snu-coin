@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import { postOrder } from "../../api";
+import { loadOrders, postOrder } from "../../api";
 import { AssetsContext } from "../../context/AssetsContext";
 import { CryptoContext } from "../../context/CryptoContext";
 import { adaptiveBackground, defaultBoxStyle } from "../../style/mixins";
 import { message } from "antd";
 import { debounce } from "../../utils/debounce";
+import { OrderContext } from "../../context/OrderContext";
 
 const S = {
   Wrapper: styled.div`
@@ -97,6 +98,7 @@ function createToastMesssage(type, content) {
 function TradeForm() {
   const { userAssets } = useContext(AssetsContext);
   const { selectedMarket } = useContext(CryptoContext);
+  const { orderList } = useContext(OrderContext);
 
   const [tradeOption, setTradeOption] = useState("buy");
   const [userOfferedPrice, setUserOfferedPrice] = useState(0);
@@ -108,6 +110,11 @@ function TradeForm() {
   let myCoin = userAssets.assets.find(
     (asset) => asset.symbol === selectedMarket.choosenMarket.coin
   );
+
+  const refreshWholeOrder = async () => {
+    const wholeOrders = await loadOrders();
+    orderList.setMyOrderList(wholeOrders);
+  };
 
   const handleActionButtonClick = () => {
     const transactionInit = async () => {
@@ -123,18 +130,24 @@ function TradeForm() {
           "0보다 큰 갯수만 거래할 수 있습니다."
         );
 
+      // market, price, quantity, remainQuantity 반환
       const orderData = await postOrder(
         userOfferedPrice,
         userOfferedAmount,
         selectedMarket.choosenMarket.name,
         tradeOption
-      ); //  market, price, quantity, remainQuantity 반환
-      if (orderData._id)
+      );
+      if (orderData._id) {
+        console.log("made order", orderData);
+
+        // 즉각적인 업데이트를 위해서 다시 order fetrching
+        refreshWholeOrder();
+
         return createToastMesssage(
           "success",
           `${orderData.market} 마켓에서 ${selectedMarket.choosenMarket.coin}  ${orderData.quantity}개를 개당 ${orderData.price} ${selectedMarket.choosenMarket.currency} 에 ${tradeOption} 하는 거래 생성`
         );
-
+      }
       setUserOfferedPrice(0);
       setUserOfferedAmount(0);
     };
@@ -191,7 +204,7 @@ function TradeForm() {
         </label>
         <S.ActionButton
           tradeOption={tradeOption === "buy"}
-          onClick={debounce(handleActionButtonClick, 1500)}
+          onClick={handleActionButtonClick}
         >
           {tradeOption === "buy" ? "매수" : "매도"}
         </S.ActionButton>

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import { loadAssets, loginByKey, LOGIN_KEY } from "./api";
+import { loadAssets, loadOrders, loginByKey, LOGIN_KEY } from "./api";
 import FullPageLoader from "./Components/common/FullPageLoader";
 import CrpytoInfo from "./Components/cryptoInfo";
 import Header from "./Components/layout/Header";
@@ -12,6 +12,7 @@ import UserAsset from "./Components/userAsset";
 import UserAuth from "./Components/userAuth";
 import { AssetsContext } from "./context/AssetsContext";
 import { LoginContext } from "./context/LoginContext";
+import { OrderContext } from "./context/OrderContext";
 import { adaptiveBackground } from "./style/mixins";
 
 const S = {
@@ -63,6 +64,7 @@ const S = {
 function App() {
   const { authenticated, userName } = useContext(LoginContext);
   const { userAssets } = useContext(AssetsContext);
+  const { orderList } = useContext(OrderContext);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -100,8 +102,18 @@ function App() {
       }
     };
 
+    const loadWholeOrder = async () => {
+      const wholeOrders = await loadOrders();
+      console.log("wholeorder", wholeOrders);
+      orderList.setMyOrderList(wholeOrders);
+    };
+
     authenticationCheck();
-    loadOwnAssets();
+
+    if (authenticated.isAuthenticated) {
+      loadOwnAssets();
+      loadWholeOrder();
+    }
   }, [authenticated]);
 
   return (

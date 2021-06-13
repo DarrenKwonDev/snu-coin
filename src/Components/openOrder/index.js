@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { deleteOrder, loadOrders } from "../../api";
 import { CryptoContext } from "../../context/CryptoContext";
 import { adaptiveBackground, defaultBoxStyle } from "../../style/mixins";
 import { Empty } from "antd";
 import Divider from "../common/Divider";
+import { OrderContext } from "../../context/OrderContext";
 
 const S = {
   Wrapper: styled.div`
@@ -54,37 +55,31 @@ const S = {
 
 function OpenOrder() {
   const { selectedMarket } = useContext(CryptoContext);
-  const [openOrderList, setOpenOrderList] = useState([]);
+  const { orderList } = useContext(OrderContext);
 
-  const getMyWholeOrders = async () => {
-    const orders = await loadOrders();
-    const openOrderInSelectedMarket = orders
-      .filter((order) => order.status === 0)
-      .filter(
-        (order) => order.market.name === selectedMarket.choosenMarket.name
-      );
+  const openOrderInSelectedMarket = orderList.myOrderList
+    .filter((order) => order.status === 0)
+    .filter((order) => order.market.name === selectedMarket.choosenMarket.name);
 
-    setOpenOrderList(openOrderInSelectedMarket);
+  const refreshWholeOrder = async () => {
+    const wholeOrders = await loadOrders();
+    orderList.setMyOrderList(wholeOrders);
   };
-
-  useEffect(() => {
-    getMyWholeOrders();
-  }, [selectedMarket]);
 
   const handleCancelButtonClick = async (openOrderId) => {
     const deleteOutput = await deleteOrder(openOrderId);
-    if (deleteOutput.status === -1) {
-      return getMyWholeOrders();
-    }
+
+    // 삭제된 order를 반영하기 위해 다시 order fetching
+    if (deleteOutput.status === -1) return refreshWholeOrder();
   };
 
   return (
     <S.Wrapper>
       <div>
-        {openOrderList.length === 0 && (
+        {openOrderInSelectedMarket.length === 0 && (
           <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
         )}
-        {openOrderList.map((openOrder) => (
+        {openOrderInSelectedMarket.map((openOrder) => (
           <S.OpenOrderItem side={openOrder.side === "buy"} key={openOrder._id}>
             <div className="side-info">
               <div>
