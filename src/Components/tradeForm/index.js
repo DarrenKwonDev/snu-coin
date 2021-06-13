@@ -3,9 +3,8 @@ import styled from "styled-components";
 import { postOrder } from "../../api";
 import { AssetsContext } from "../../context/AssetsContext";
 import { CryptoContext } from "../../context/CryptoContext";
-import { defaultBoxStyle } from "../../style/mixins";
+import { adaptiveBackground, defaultBoxStyle } from "../../style/mixins";
 import { message } from "antd";
-import { throttle } from "../../utils/throttle";
 import { debounce } from "../../utils/debounce";
 
 const S = {
@@ -50,6 +49,7 @@ const S = {
     }
 
     input {
+      ${adaptiveBackground}
       padding: 12px;
       margin: 12px 0;
       border-radius: 6px;
