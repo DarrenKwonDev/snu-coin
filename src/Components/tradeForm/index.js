@@ -5,6 +5,8 @@ import { AssetsContext } from "../../context/AssetsContext";
 import { CryptoContext } from "../../context/CryptoContext";
 import { defaultBoxStyle } from "../../style/mixins";
 import { message } from "antd";
+import { throttle } from "../../utils/throttle";
+import { debounce } from "../../utils/debounce";
 
 const S = {
   Wrapper: styled.div`
@@ -189,7 +191,7 @@ function TradeForm() {
         </label>
         <S.ActionButton
           tradeOption={tradeOption === "buy"}
-          onClick={handleActionButtonClick}
+          onClick={debounce(handleActionButtonClick, 1500)}
         >
           {tradeOption === "buy" ? "매수" : "매도"}
         </S.ActionButton>
